@@ -1,69 +1,67 @@
-import React, { useState, useEffect } from 'react'
-import api from '../api'
-import { useNavigate } from 'react-router-dom'
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaSun, FaMoon } from 'react-icons/fa'
+import React, { useState, useEffect } from 'react';
+import api from '../api';
+import { useNavigate } from 'react-router-dom';
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaSun, FaMoon } from 'react-icons/fa';
 
-export default function Login(){
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState(null)
-  const [showPassword, setShowPassword] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [darkMode, setDarkMode] = useState(false)
+export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  // Detect system preference for dark mode
   useEffect(() => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    setDarkMode(prefersDark)
-  }, [])
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setDarkMode(prefersDark);
+  }, []);
 
-  async function submit(e){
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
+  async function submit(e) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
     try {
-      const res = await api.post('/auth/login', { username, password })
-      if (!res.data || !res.data.data) throw new Error('Unexpected response from server')
-      const token = res.data.data.token
-      const user = res.data.data.data || null
-      if (!token) throw new Error('No token received')
-      localStorage.setItem('token', token)
-      if (user) localStorage.setItem('user', JSON.stringify(user))
-      navigate('/')
+      const res = await api.post('/auth/login', { username, password });
+      if (!res.data || !res.data.data) throw new Error('Unexpected response from server');
+      const token = res.data.data.token;
+      const user = res.data.data.data || null;
+      if (!token) throw new Error('No token received');
+      localStorage.setItem('token', token);
+      if (user) localStorage.setItem('user', JSON.stringify(user));
+      navigate('/');
     } catch (err) {
-      setError(err.response?.data?.error || err.message || 'Login failed')
+      setError(err.response?.data?.error || err.message || 'Login failed');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-300`}>
+    <div className={`${darkMode ? 'dark' : ''} min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-300 p-4 sm:p-6`}>
       {/* Theme Toggle */}
       <button
         onClick={() => setDarkMode(!darkMode)}
         className="absolute top-5 right-5 p-2 rounded-full bg-white dark:bg-gray-800 shadow-md transition-colors duration-300 hover:scale-110"
       >
-        {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-gray-800" />}
+        {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-gray-800 dark:text-gray-200" />}
       </button>
 
-      <div className="w-full max-w-md p-6">
+      <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">Welcome Back</h1>
-          <p className="text-gray-600 dark:text-gray-300">Sign in to your account</p>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white mb-2">Welcome Back</h1>
+          <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">Sign in to your account</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 sm:p-8">
           <form onSubmit={submit} className="space-y-6">
-            {/* username */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Username
-              </label>
+
+            {/* Username */}
+            <div className="flex flex-col">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
               <div className="relative">
                 <FaUser className="absolute left-3 top-3 text-gray-400 dark:text-gray-500" />
                 <input
@@ -78,13 +76,8 @@ export default function Login(){
             </div>
 
             {/* Password */}
-            <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Password
-                </label>
-                
-              </div>
+            <div className="flex flex-col">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
               <div className="relative">
                 <FaLock className="absolute left-3 top-3 text-gray-400 dark:text-gray-500" />
                 <input
@@ -152,8 +145,6 @@ export default function Login(){
             </button>
           </form>
         </div>
-
-        
       </div>
 
       {/* Animations */}
@@ -168,5 +159,5 @@ export default function Login(){
         `}
       </style>
     </div>
-  )
+  );
 }

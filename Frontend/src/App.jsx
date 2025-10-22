@@ -21,14 +21,14 @@ function useAuth() {
 export default function App() {
   const token = localStorage.getItem('token');
   const { logout } = useAuth();
-  
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900 transition-colors duration-500">
 
       {/* Header */}
       <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          
+
           {/* Logo & Navigation */}
           <div className="flex items-center space-x-8">
             <h1 className="text-2xl font-extrabold text-gray-800 dark:text-white">REMUSECO COMPANY</h1>
@@ -47,15 +47,15 @@ export default function App() {
           {/* Login / Logout */}
           <div>
             {token ? (
-              <button 
-                onClick={logout} 
+              <button
+                onClick={logout}
                 className="px-4 py-2 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition-colors duration-300"
               >
                 Logout
               </button>
             ) : (
-              <Link 
-                to="/login" 
+              <Link
+                to="/login"
                 className="px-4 py-2 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition-colors duration-300"
               >
                 Login
