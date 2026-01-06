@@ -14,14 +14,9 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: FRONTEND_URL,
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: "https://remuseconew-production-ac66.up.railway.app",
+  credentials: true
 }));
-
-// 🚨 IMPORTANT for Railway preflight
-app.options("*", cors());
 
 app.use(express.json());
 app.use(morgan('dev')); 
