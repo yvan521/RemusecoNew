@@ -10,22 +10,14 @@ import employeeRoutes from '../routes/employees.js';
 import transactionRoutes from '../routes/transactions.js';
 import reportRoutes from '../routes/reports.js';
 
-
 dotenv.config();
 const app = express();
 
-app.use(cors({
-  origin: "https://remuseconew-production-ac66.up.railway.app",
-  credentials: true
-}));
-
+app.use(cors());
 app.use(express.json());
-app.use(morgan('dev'));
+app.use(morgan('dev')); 
 
-app.get('/', (req, res) => {
-  res.json({ ok: true, name: 'Stock API' });
-});
-
+app.get('/', (req, res) => res.json({ ok: true, name: 'Stock API' }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/units', unitRoutes);
@@ -36,7 +28,3 @@ app.use('/api/reports', reportRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}`));
-
-
-
-
