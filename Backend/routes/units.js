@@ -13,6 +13,7 @@ router.get('/', authRequired, async (req, res) => {
   } catch (e) { return serverError(res, e); }
 });
 
+
 router.post('/', authRequired, requireRole('manager'), async (req, res) => {
   try {
     const { unit_name, unit_type } = req.body;
