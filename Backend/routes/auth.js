@@ -85,21 +85,6 @@ return ok(res, {
   }
 );
 
-/** Auth middleware */
-function authMiddleware(req, res, next) {
-  const header = req.headers.authorization || "";
-  const token = header.startsWith("Bearer ") ? header.slice(7) : null;
-  if (!token) return unauthorized(res, "Missing token");
-
-  try {
-    const decoded = signJwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // { employee_id, username, role }
-    next();
-  } catch {
-    return unauthorized(res, "Invalid or expired token");
-  }
-} 
-
 router.get("/me", authRequired, async (req, res) => {
   try {
     if (!req.user || !req.user.employee_id) {
