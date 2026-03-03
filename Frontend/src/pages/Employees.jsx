@@ -41,7 +41,12 @@ export default function Employees() {
       setFullName(''); setUsername(''); setPassword(''); setRole('staff');
       await load();
     } catch (err) {
-      setError(err.response?.data?.error || err.message);
+      const backendError = err.response?.data?.error;
+      if (Array.isArray(backendError)) {
+        setError(backendError.map(e => e.msg).join(', '));
+      } else {
+        setError(backendError || err.message);
+      }
     }
   }
 
