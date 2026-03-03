@@ -8,11 +8,11 @@ export default function Dashboard() {
 
   const navItems = [
     { label: 'Home', icon: <FaHome />, link: '/' },
-    { label: 'Units', icon: <FaBoxes />, link: '/units' },
-    { label: 'Products', icon: <FaBoxes />, link: '/products' },
-    { label: 'Transactions', icon: <FaCashRegister />, link: '/transactions' },
-    { label: 'Employees', icon: <FaUsers />, link: '/employees' },
-    { label: 'Reports', icon: <FaChartBar />, link: '/reports' },
+    { label: 'Units', icon: <FaBoxes />, link: 'units' },
+    { label: 'Products', icon: <FaBoxes />, link: 'products' },
+    { label: 'Transactions', icon: <FaCashRegister />, link: 'transactions' },
+    { label: 'Employees', icon: <FaUsers />, link: 'employees' },
+    { label: 'Reports', icon: <FaChartBar />, link: 'reports' },
   ];
 
   const cardStyles = [
